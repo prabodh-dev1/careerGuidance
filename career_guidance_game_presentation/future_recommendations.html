@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Open Sans', sans-serif;
+        color: #333333;
+      }
+      .slide-container {
+        width: 1280px;
+        min-height: 720px;
+        background: #f4f7f9;
+        overflow: hidden;
+        position: relative;
+      }
+      h1, h2, h3, h4, h5, h6 {
+        font-family: 'Montserrat', sans-serif;
+      }
+      .page-title {
+        font-size: 36px;
+        font-weight: 700;
+        color: #1a365d;
+      }
+      .subtitle {
+        font-size: 24px;
+        font-weight: 600;
+        color: #2a9d8f;
+      }
+      .content-text {
+        font-size: 20px;
+        line-height: 1.5;
+      }
+      .header-bar {
+        height: 8px;
+        background: linear-gradient(90deg, #1a365d 0%, #2a9d8f 100%);
+      }
+      .recommendation-box {
+        border-radius: 8px;
+        padding: 12px;
+        margin-bottom: 12px;
+      }
+      .category-icon {
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 16px;
+      }
+      .page-number {
+        position: absolute;
+        bottom: 20px;
+        right: 20px;
+        font-size: 16px;
+        color: #1a365d;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="slide-container">
+      <div class="header-bar"></div>
+      
+      <div class="p-10">
+        <h1 class="page-title mb-6">Future Development Recommendations</h1>
+        
+        <div class="grid grid-cols-2 gap-6">
+          <!-- Left column with image and deployment strategy -->
+          <div>
+            <img src="/home/ubuntu/upload/search_images/oZ9TyPC03HiB.jpg" alt="Strategic career planning" class="rounded-lg shadow-lg mb-6" style="width: 450px; height: 189px; object-fit: cover;">
+            
+            <div class="recommendation-box bg-blue-50">
+              <div class="flex items-start">
+                <div class="category-icon bg-blue-600 text-white">
+                  <i class="fas fa-rocket text-xl"></i>
+                </div>
+                <div>
+                  <h3 class="subtitle mb-2">Deployment Strategy</h3>
+                  <ul class="content-text list-disc pl-6 space-y-1">
+                    <li>Web application deployment for easy access</li>
+                    <li>User authentication for progress tracking</li>
+                    <li>API integration with school career systems</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Right column with recommendation categories -->
+          <div>
+            <div class="recommendation-box bg-green-50">
+              <div class="flex items-start">
+                <div class="category-icon bg-green-600 text-white">
+                  <i class="fas fa-code text-xl"></i>
+                </div>
+                <div>
+                  <h3 class="subtitle mb-2">Technical Improvements</h3>
+                  <ul class="content-text list-disc pl-6 space-y-1">
+                    <li>Implement Redux or Context API for robust state management</li>
+                    <li>Add comprehensive unit and integration tests</li>
+                    <li>Optimize for mobile devices and smaller screens</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            
+            <div class="recommendation-box bg-purple-50">
+              <div class="flex items-start">
+                <div class="category-icon bg-purple-600 text-white">
+                  <i class="fas fa-puzzle-piece text-xl"></i>
+                </div>
+                <div>
+                  <h3 class="subtitle mb-2">Feature Enhancements</h3>
+                  <ul class="content-text list-disc pl-6 space-y-1">
+                    <li>Expand assessment phase with additional mini-games</li>
+                    <li>Connect to actual career market data APIs</li>
+                    <li>Implement multiplayer mode for classroom use</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            
+            <div class="recommendation-box bg-red-50">
+              <div class="flex items-start">
+                <div class="category-icon bg-red-600 text-white">
+                  <i class="fas fa-graduation-cap text-xl"></i>
+                </div>
+                <div>
+                  <h3 class="subtitle mb-2">Educational Extensions</h3>
+                  <ul class="content-text list-disc pl-6 space-y-1">
+                    <li>Develop teacher guides for classroom integration</li>
+                    <li>Add more game theory concepts beyond Nash Equilibrium</li>
+                    <li>Create follow-up activities based on game results</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="page-number">8</div>
+    </div>
+  </body>
+</html>
+

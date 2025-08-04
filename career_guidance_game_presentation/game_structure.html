@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Open Sans', sans-serif;
+        color: #333333;
+      }
+      .slide-container {
+        width: 1280px;
+        min-height: 720px;
+        background: #f4f7f9;
+        overflow: hidden;
+        position: relative;
+      }
+      h1, h2, h3, h4, h5, h6 {
+        font-family: 'Montserrat', sans-serif;
+      }
+      .page-title {
+        font-size: 36px;
+        font-weight: 700;
+        color: #1a365d;
+      }
+      .subtitle {
+        font-size: 24px;
+        font-weight: 600;
+        color: #2a9d8f;
+      }
+      .content-text {
+        font-size: 20px;
+        line-height: 1.6;
+      }
+      .header-bar {
+        height: 8px;
+        background: linear-gradient(90deg, #1a365d 0%, #2a9d8f 100%);
+      }
+      .phase-box {
+        border-radius: 12px;
+        padding: 20px;
+        height: 220px;
+        transition: all 0.3s ease;
+      }
+      .phase-box:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      }
+      .phase-icon {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 16px;
+      }
+      .arrow {
+        position: absolute;
+        width: 50px;
+        height: 30px;
+      }
+      .page-number {
+        position: absolute;
+        bottom: 20px;
+        right: 20px;
+        font-size: 16px;
+        color: #1a365d;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="slide-container">
+      <div class="header-bar"></div>
+      
+      <div class="p-12">
+        <h1 class="page-title mb-8">Game Structure</h1>
+        
+        <div class="text-center mb-10">
+          <p class="content-text">The game consists of four interconnected phases that guide students through a comprehensive career exploration journey</p>
+        </div>
+        
+        <div class="grid grid-cols-2 gap-8 relative">
+          <!-- Phase 1: Entry Phase -->
+          <div class="phase-box bg-blue-50 border-l-4 border-blue-600">
+            <div class="phase-icon bg-blue-600 text-white">
+              <i class="fas fa-user-check text-2xl"></i>
+            </div>
+            <h3 class="subtitle mb-2">1. Entry Phase</h3>
+            <h4 class="text-blue-700 text-lg mb-2">Personality & Skills Assessment</h4>
+            <p class="content-text">Players complete mini-games and scenario-based questions to assess their personality traits and skill levels. Results create a comprehensive profile used throughout the game.</p>
+          </div>
+          
+          <!-- Phase 2: Decision Phase -->
+          <div class="phase-box bg-green-50 border-l-4 border-green-600">
+            <div class="phase-icon bg-green-600 text-white">
+              <i class="fas fa-chess text-2xl"></i>
+            </div>
+            <h3 class="subtitle mb-2">2. Decision Phase</h3>
+            <h4 class="text-green-700 text-lg mb-2">Strategic Career Selection</h4>
+            <p class="content-text">Players select career roles over multiple rounds, observing how their choices and the choices of others affect market conditions, competition, and opportunities.</p>
+          </div>
+          
+          <!-- Phase 3: Nash Equilibrium Phase -->
+          <div class="phase-box bg-yellow-50 border-l-4 border-yellow-600">
+            <div class="phase-icon bg-yellow-600 text-white">
+              <i class="fas fa-balance-scale text-2xl"></i>
+            </div>
+            <h3 class="subtitle mb-2">3. Nash Equilibrium Phase</h3>
+            <h4 class="text-yellow-700 text-lg mb-2">Equilibrium Visualization</h4>
+            <p class="content-text">The game detects and highlights when Nash Equilibrium is reached—a stable state where no player can improve their outcome by changing careers alone.</p>
+          </div>
+          
+          <!-- Phase 4: Reflection Phase -->
+          <div class="phase-box bg-purple-50 border-l-4 border-purple-600">
+            <div class="phase-icon bg-purple-600 text-white">
+              <i class="fas fa-lightbulb text-2xl"></i>
+            </div>
+            <h3 class="subtitle mb-2">4. Reflection Phase</h3>
+            <h4 class="text-purple-700 text-lg mb-2">Personalized Recommendations</h4>
+            <p class="content-text">Players receive personalized career recommendations based on their profile, gameplay choices, and market conditions, along with resources for further exploration.</p>
+          </div>
+          
+          <!-- Arrows connecting phases -->
+          <div class="absolute" style="top: 110px; left: 48%;">
+            <i class="fas fa-arrow-right text-gray-500 text-3xl"></i>
+          </div>
+          <div class="absolute" style="top: 230px; left: 25%;">
+            <i class="fas fa-arrow-down text-gray-500 text-3xl"></i>
+          </div>
+          <div class="absolute" style="top: 230px; left: 75%;">
+            <i class="fas fa-arrow-down text-gray-500 text-3xl"></i>
+          </div>
+          <div class="absolute" style="top: 350px; left: 48%;">
+            <i class="fas fa-arrow-left text-gray-500 text-3xl"></i>
+          </div>
+        </div>
+        
+        <div class="mt-10 text-center">
+          <p class="content-text italic text-gray-600">Each phase builds upon the previous one, creating a comprehensive learning experience about career planning and game theory principles.</p>
+        </div>
+      </div>
+      
+      <div class="page-number">3</div>
+    </div>
+  </body>
+</html>
+

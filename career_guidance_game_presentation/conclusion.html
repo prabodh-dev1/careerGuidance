@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Open Sans', sans-serif;
+        color: #333333;
+      }
+      .slide-container {
+        width: 1280px;
+        min-height: 720px;
+        background: #f4f7f9;
+        overflow: hidden;
+        position: relative;
+      }
+      h1, h2, h3, h4, h5, h6 {
+        font-family: 'Montserrat', sans-serif;
+      }
+      .page-title {
+        font-size: 36px;
+        font-weight: 700;
+        color: #1a365d;
+      }
+      .subtitle {
+        font-size: 24px;
+        font-weight: 600;
+        color: #2a9d8f;
+      }
+      .content-text {
+        font-size: 20px;
+        line-height: 1.6;
+      }
+      .header-bar {
+        height: 8px;
+        background: linear-gradient(90deg, #1a365d 0%, #2a9d8f 100%);
+      }
+      .highlight-box {
+        border-left: 4px solid #2a9d8f;
+        padding-left: 16px;
+        margin-bottom: 20px;
+      }
+      .benefit-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 16px;
+      }
+      .benefit-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 16px;
+        background-color: #1a365d;
+        color: white;
+      }
+      .page-number {
+        position: absolute;
+        bottom: 20px;
+        right: 20px;
+        font-size: 16px;
+        color: #1a365d;
+      }
+      .gradient-text {
+        background: linear-gradient(90deg, #1a365d, #2a9d8f);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        font-weight: 700;
+      }
+      .cta-button {
+        background: linear-gradient(90deg, #1a365d, #2a9d8f);
+        color: white;
+        padding: 12px 24px;
+        border-radius: 8px;
+        font-weight: 600;
+        display: inline-block;
+        transition: all 0.3s ease;
+      }
+      .cta-button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="slide-container">
+      <div class="header-bar"></div>
+      
+      <div class="p-12">
+        <h1 class="page-title mb-8">Conclusion</h1>
+        
+        <div class="flex">
+          <!-- Left column with inspirational image -->
+          <div class="w-5/12 pr-8">
+            <img src="/home/ubuntu/upload/search_images/5Iy2tHpKdA48.jpg" alt="Students planning successful careers" class="rounded-lg shadow-lg mb-8" style="width: 450px; height: 300px; object-fit: cover;">
+            
+            <div class="highlight-box">
+              <h3 class="subtitle mb-2">Project Achievements</h3>
+              <p class="content-text">The Career Guidance Game successfully demonstrates how game theory principles can be applied to career guidance in an engaging, educational format that helps students make informed decisions.</p>
+            </div>
+          </div>
+          
+          <!-- Right column with conclusion content -->
+          <div class="w-7/12">
+            <div class="mb-8">
+              <h3 class="subtitle mb-4">Potential Impact</h3>
+              <p class="content-text mb-4">By combining personality assessment, strategic decision-making, and market simulation, this educational tool has the potential to significantly improve career guidance practices in educational settings.</p>
+              
+              <p class="content-text">The integration of <span class="gradient-text">Nash Equilibrium</span> concepts helps students understand the complex interplay between personal preferences and market realities, preparing them to make strategic decisions in their actual career planning process.</p>
+            </div>
+            
+            <div class="mb-8">
+              <h3 class="subtitle mb-4">Key Benefits</h3>
+              
+              <div class="benefit-item">
+                <div class="benefit-icon">
+                  <i class="fas fa-lightbulb"></i>
+                </div>
+                <div>
+                  <h4 class="font-semibold text-lg">Enhanced Self-Awareness</h4>
+                  <p class="text-base">Students gain deeper insights into their skills and personality traits</p>
+                </div>
+              </div>
+              
+              <div class="benefit-item">
+                <div class="benefit-icon">
+                  <i class="fas fa-chess"></i>
+                </div>
+                <div>
+                  <h4 class="font-semibold text-lg">Strategic Thinking</h4>
+                  <p class="text-base">Development of strategic decision-making skills applicable beyond careers</p>
+                </div>
+              </div>
+              
+              <div class="benefit-item">
+                <div class="benefit-icon">
+                  <i class="fas fa-chart-line"></i>
+                </div>
+                <div>
+                  <h4 class="font-semibold text-lg">Market Awareness</h4>
+                  <p class="text-base">Understanding of how market dynamics affect career opportunities</p>
+                </div>
+              </div>
+            </div>
+            
+            <div class="text-center mt-10">
+              <a href="#" class="cta-button">
+                <i class="fas fa-rocket mr-2"></i> Implement in Your Institution
+              </a>
+              <p class="mt-4 text-gray-600 italic">Join us in revolutionizing career guidance through game theory</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="page-number">9</div>
+    </div>
+  </body>
+</html>
+

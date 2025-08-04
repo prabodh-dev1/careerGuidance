@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Open Sans', sans-serif;
+        color: #333333;
+      }
+      .slide-container {
+        width: 1280px;
+        min-height: 720px;
+        background: #f4f7f9;
+        overflow: hidden;
+        position: relative;
+      }
+      h1, h2, h3, h4, h5, h6 {
+        font-family: 'Montserrat', sans-serif;
+      }
+      .page-title {
+        font-size: 36px;
+        font-weight: 700;
+        color: #1a365d;
+      }
+      .subtitle {
+        font-size: 24px;
+        font-weight: 600;
+        color: #2a9d8f;
+      }
+      .content-text {
+        font-size: 20px;
+        line-height: 1.6;
+      }
+      .header-bar {
+        height: 8px;
+        background: linear-gradient(90deg, #1a365d 0%, #2a9d8f 100%);
+      }
+      .tech-tag {
+        background-color: #e9c46a;
+        color: #333;
+        padding: 4px 12px;
+        border-radius: 16px;
+        font-size: 16px;
+        font-weight: 600;
+        margin-right: 8px;
+        margin-bottom: 8px;
+        display: inline-block;
+      }
+      .code-block {
+        background-color: #1a365d;
+        color: #f4f7f9;
+        border-radius: 8px;
+        padding: 12px;
+        font-family: monospace;
+        font-size: 16px;
+        line-height: 1.4;
+      }
+      .page-number {
+        position: absolute;
+        bottom: 20px;
+        right: 20px;
+        font-size: 16px;
+        color: #1a365d;
+      }
+      .component-node {
+        fill: #2a9d8f;
+        stroke: #1a365d;
+        stroke-width: 2px;
+      }
+      .component-text {
+        font-family: 'Open Sans', sans-serif;
+        font-size: 14px;
+        fill: white;
+        text-anchor: middle;
+        dominant-baseline: middle;
+      }
+      .component-link {
+        stroke: #1a365d;
+        stroke-width: 2px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="slide-container">
+      <div class="header-bar"></div>
+      
+      <div class="p-12">
+        <h1 class="page-title mb-6">Implementation Details</h1>
+        
+        <div class="grid grid-cols-2 gap-6">
+          <!-- Left column with component diagram -->
+          <div>
+            <h3 class="subtitle mb-3">Component Structure & Data Flow</h3>
+            
+            <div id="component-diagram" style="height: 300px; background-color: #f0f5f9; border-radius: 8px; padding: 16px;"></div>
+            
+            <script>
+              // Component structure data
+              const components = [
+                { id: "app", name: "App.jsx", x: 200, y: 50, width: 120, height: 40 },
+                { id: "header", name: "GameHeader", x: 200, y: 130, width: 120, height: 40 },
+                { id: "welcome", name: "WelcomePhase", x: 60, y: 180, width: 120, height: 40 },
+                { id: "assessment", name: "AssessmentPhase", x: 200, y: 180, width: 120, height: 40 },
+                { id: "selection", name: "CareerSelection", x: 340, y: 180, width: 120, height: 40 },
+                { id: "equilibrium", name: "EquilibriumPhase", x: 130, y: 230, width: 120, height: 40 },
+                { id: "reflection", name: "ReflectionPhase", x: 270, y: 230, width: 120, height: 40 },
+                { id: "gameLogic", name: "gameLogic.js", x: 200, y: 280, width: 120, height: 40 }
+              ];
+              
+              const links = [
+                { source: "app", target: "header" },
+                { source: "app", target: "welcome" },
+                { source: "app", target: "assessment" },
+                { source: "app", target: "selection" },
+                { source: "app", target: "equilibrium" },
+                { source: "app", target: "reflection" },
+                { source: "app", target: "gameLogic" },
+                { source: "assessment", target: "gameLogic" },
+                { source: "selection", target: "gameLogic" },
+                { source: "equilibrium", target: "gameLogic" },
+                { source: "reflection", target: "gameLogic" }
+              ];
+              
+              // Create SVG
+              const svg = d3.select("#component-diagram")
+                .append("svg")
+                .attr("width", "100%")
+                .attr("height", "100%")
+                .attr("viewBox", "0 0 400 300");
+              
+              // Create links
+              svg.selectAll(".component-link")
+                .data(links)
+                .enter()
+                .append("line")
+                .attr("class", "component-link")
+                .attr("x1", d => {
+                  const source = components.find(c => c.id === d.source);
+                  return source.x + source.width/2;
+                })
+                .attr("y1", d => {
+                  const source = components.find(c => c.id === d.source);
+                  return source.y + source.height;
+                })
+                .attr("x2", d => {
+                  const target = components.find(c => c.id === d.target);
+                  return target.x + target.width/2;
+                })
+                .attr("y2", d => {
+                  const target = components.find(c => c.id === d.target);
+                  return target.y;
+                });
+              
+              // Create component nodes
+              const nodes = svg.selectAll(".component-node")
+                .data(components)
+                .enter()
+                .append("g");
+              
+              nodes.append("rect")
+                .attr("class", "component-node")
+                .attr("x", d => d.x)
+                .attr("y", d => d.y)
+                .attr("width", d => d.width)
+                .attr("height", d => d.height)
+                .attr("rx", 6);
+              
+              nodes.append("text")
+                .attr("class", "component-text")
+                .attr("x", d => d.x + d.width/2)
+                .attr("y", d => d.y + d.height/2)
+                .text(d => d.name);
+            </script>
+          </div>
+          
+          <!-- Right column with implementation details -->
+          <div>
+            <div class="mb-4">
+              <h3 class="subtitle mb-2">Technology Stack</h3>
+              <div class="flex flex-wrap justify-evenly">
+                <span class="tech-tag"><i class="fab fa-react mr-1"></i> React</span>
+                <span class="tech-tag"><i class="fab fa-css3 mr-1"></i> Tailwind CSS</span>
+                <span class="tech-tag"><i class="fas fa-code mr-1"></i> JavaScript</span>
+                <span class="tech-tag"><i class="fas fa-box mr-1"></i> Vite</span>
+              </div>
+            </div>
+            
+            <div class="mb-4">
+              <h3 class="subtitle mb-2">Key Data Model</h3>
+              <div class="code-block">
+                <pre>// GameState
+{
+  phase: 'welcome' | 'assessment' | 'selection' | 
+         'equilibrium' | 'reflection',
+  roundNumber: number,
+  players: { [playerId]: PlayerData },
+  marketData: { [career]: MarketData }
+}</pre>
+              </div>
+            </div>
+            
+            <div>
+              <h3 class="subtitle mb-2">Core Algorithms</h3>
+              <div class="grid grid-cols-2 gap-2">
+                <div>
+                  <ul class="content-text list-disc pl-6 space-y-1">
+                    <li><span class="font-semibold">calculateSkillFit</span></li>
+                    <li><span class="font-semibold">calculateMarketDemand</span></li>
+                  </ul>
+                </div>
+                <div>
+                  <ul class="content-text list-disc pl-6 space-y-1">
+                    <li><span class="font-semibold">detectNashEquilibrium</span></li>
+                    <li><span class="font-semibold">generateRecommendations</span></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="page-number">6</div>
+    </div>
+  </body>
+</html>
+

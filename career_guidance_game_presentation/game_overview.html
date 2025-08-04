@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Open Sans', sans-serif;
+        color: #333333;
+      }
+      .slide-container {
+        width: 1280px;
+        min-height: 720px;
+        background: #f4f7f9;
+        overflow: hidden;
+        position: relative;
+      }
+      h1, h2, h3, h4, h5, h6 {
+        font-family: 'Montserrat', sans-serif;
+      }
+      .page-title {
+        font-size: 36px;
+        font-weight: 700;
+        color: #1a365d;
+      }
+      .subtitle {
+        font-size: 24px;
+        font-weight: 600;
+        color: #2a9d8f;
+      }
+      .content-text {
+        font-size: 20px;
+        line-height: 1.6;
+      }
+      .highlight {
+        color: #2a9d8f;
+        font-weight: 600;
+      }
+      .header-bar {
+        height: 8px;
+        background: linear-gradient(90deg, #1a365d 0%, #2a9d8f 100%);
+      }
+      .page-number {
+        position: absolute;
+        bottom: 20px;
+        right: 20px;
+        font-size: 16px;
+        color: #1a365d;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="slide-container">
+      <div class="header-bar"></div>
+      
+      <div class="p-12">
+        <h1 class="page-title mb-8">Game Concept & Educational Value</h1>
+        
+        <div class="flex">
+          <!-- Left column with image -->
+          <div class="w-5/12 pr-8">
+            <img src="/home/ubuntu/upload/search_images/5Iy2tHpKdA48.jpg" alt="Strategic planning and goal achievement" class="rounded-lg shadow-lg" style="width: 450px; height: 300px; object-fit: cover;">
+            
+            <div class="mt-8 bg-blue-50 rounded-lg p-6">
+              <h3 class="subtitle mb-3">Unique Value Proposition</h3>
+              <ul class="content-text list-disc pl-6 space-y-2">
+                <li>Dynamic market simulation with real-time feedback</li>
+                <li>Strategic decision-making with competitive elements</li>
+                <li>Visual representation of Nash Equilibrium</li>
+                <li>Personalized career recommendations</li>
+              </ul>
+            </div>
+          </div>
+          
+          <!-- Right column with content -->
+          <div class="w-7/12">
+            <div class="content-text mb-6">
+              <p>The <span class="highlight">Career Guidance Game</span> is an interactive educational tool that simulates career decision-making in a competitive environment. It applies game theory principles, particularly Nash Equilibrium, to help students understand how their career choices interact with market conditions and the choices of others.</p>
+            </div>
+            
+            <div class="mb-6">
+              <h3 class="subtitle mb-3">Educational Objectives</h3>
+              <ul class="content-text list-disc pl-6 space-y-2">
+                <li>Help students discover career paths aligned with their personality and skills</li>
+                <li>Teach strategic thinking in career planning</li>
+                <li>Demonstrate market dynamics and competition in various career fields</li>
+                <li>Introduce game theory concepts in a practical, relatable context</li>
+                <li>Provide personalized career guidance based on assessment and gameplay</li>
+              </ul>
+            </div>
+            
+            <div>
+              <h3 class="subtitle mb-3">Target Audience</h3>
+              <div class="flex flex-wrap">
+                <div class="w-1/2 mb-4">
+                  <div class="flex items-center">
+                    <i class="fas fa-user-graduate text-2xl text-blue-700 mr-3"></i>
+                    <p class="content-text">High school students</p>
+                  </div>
+                </div>
+                <div class="w-1/2 mb-4">
+                  <div class="flex items-center">
+                    <i class="fas fa-university text-2xl text-blue-700 mr-3"></i>
+                    <p class="content-text">College students</p>
+                  </div>
+                </div>
+                <div class="w-1/2">
+                  <div class="flex items-center">
+                    <i class="fas fa-chalkboard-teacher text-2xl text-blue-700 mr-3"></i>
+                    <p class="content-text">Career counselors</p>
+                  </div>
+                </div>
+                <div class="w-1/2">
+                  <div class="flex items-center">
+                    <i class="fas fa-sync-alt text-2xl text-blue-700 mr-3"></i>
+                    <p class="content-text">Career changers</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="page-number">2</div>
+    </div>
+  </body>
+</html>
+
