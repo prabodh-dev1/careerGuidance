@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { GameState } from './lib/gameLogic'
 import WelcomePhase from './components/WelcomePhase'
 import AssessmentPhase from './components/AssessmentPhase'
@@ -12,18 +12,14 @@ function App() {
   const [gameState, setGameState] = useState(new GameState())
   const [playerProfile, setPlayerProfile] = useState(null)
 
-  // Update game state
-  const updateGameState = (newState) => {
-    setGameState(new GameState())
-    Object.assign(gameState, newState)
-    setGameState({ ...gameState })
-  }
-
   // Handle phase transitions
   const advancePhase = () => {
-    const newGameState = { ...gameState }
-    newGameState.advancePhase()
-    setGameState(newGameState)
+    setGameState((prev) => {
+      const newGameState = new GameState()
+      Object.assign(newGameState, prev)
+      newGameState.advancePhase()
+      return newGameState
+    })
   }
 
   // Handle player profile completion
@@ -35,18 +31,23 @@ function App() {
 
   // Handle career selection
   const selectCareer = (career) => {
-    const choices = { player1: career }
-    gameState.addChoiceRound(choices)
-    
-    // Check for equilibrium or advance round
-    if (gameState.checkEquilibriumConditions()) {
-      advancePhase() // Go to equilibrium phase
-    } else if (gameState.roundNumber < gameState.maxRounds) {
-      gameState.advanceRound()
-      setGameState({ ...gameState })
-    } else {
-      advancePhase() // Go to equilibrium phase
-    }
+    setGameState((prev) => {
+      const newGameState = new GameState()
+      Object.assign(newGameState, prev)
+      const choices = { player1: career }
+      newGameState.addChoiceRound(choices)
+
+      // Check for equilibrium or advance round
+      if (newGameState.checkEquilibriumConditions()) {
+        newGameState.advancePhase() // Go to equilibrium phase
+      } else if (newGameState.roundNumber < newGameState.maxRounds) {
+        newGameState.advanceRound()
+      } else {
+        newGameState.advancePhase() // Go to equilibrium phase
+      }
+
+      return newGameState
+    })
   }
 
   // Render current phase
