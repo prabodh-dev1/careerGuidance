@@ -25,7 +25,8 @@ function App() {
   // Handle player profile completion
   const completeAssessment = (profile) => {
     setPlayerProfile(profile)
-    gameState.setCurrentPlayer('player1', profile)
+    const roomId = gameState.setCurrentPlayer('player1', profile)
+    console.log(`Player joined ${roomId}`)
     advancePhase()
   }
 

@@ -237,7 +237,7 @@ export function assessSkills(personalityScores, miniGamePerformance) {
 }
 
 // Market demand calculation
-export function calculateMarketDemand(role, playerChoices, roundNumber = 1) {
+export function calculateMarketDemand(role, playerChoices) {
   const baseDemand = careerRoles[role].baseDemand;
   
   // Calculate saturation based on player choices
@@ -447,11 +447,25 @@ export class GameState {
     this.choiceHistory = [];
     this.equilibriumAchieved = false;
     this.currentPlayer = null;
+    this.rooms = [];
+    this.playerRooms = {};
   }
 
   setCurrentPlayer(playerId, profile) {
     this.currentPlayer = playerId;
     this.players[playerId] = profile;
+    return this.assignPlayerToRoom(playerId);
+  }
+
+  assignPlayerToRoom(playerId) {
+    let room = this.rooms.find(r => r.players.length < 10);
+    if (!room) {
+      room = { id: `room${this.rooms.length + 1}`, players: [] };
+      this.rooms.push(room);
+    }
+    room.players.push(playerId);
+    this.playerRooms[playerId] = room.id;
+    return room.id;
   }
 
   advancePhase() {
