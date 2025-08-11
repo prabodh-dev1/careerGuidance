@@ -1,9 +1,19 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Progress } from '@/components/ui/progress'
 import { Badge } from '@/components/ui/badge'
 import { calculatePersonalityScores, assessSkills } from '../lib/gameLogic'
+import {
+  generateCreativeChallenges,
+  generateReactionTargets,
+  generatePatternQuestions,
+  evaluateSolutions
+} from '@/lib/ollama'
+
+const usedReactionTargets = []
+const usedPatternSequences = []
+const usedCreativeProblems = []
 
 const AssessmentPhase = ({ onComplete }) => {
   const [currentMiniGame, setCurrentMiniGame] = useState(0)
@@ -174,7 +184,24 @@ const ReactionTimeGame = ({ onComplete, gameInfo }) => {
   const [round, setRound] = useState(0)
   const [showTarget, setShowTarget] = useState(false)
 
-  const maxRounds = 5
+  const defaultTargets = ['🎯', '⭐', '🔥', '⚡', '💥']
+  const [targets, setTargets] = useState(defaultTargets)
+  const maxRounds = targets.length
+
+  useEffect(() => {
+    async function loadTargets() {
+      try {
+        const fetched = await generateReactionTargets(usedReactionTargets)
+        if (Array.isArray(fetched) && fetched.length > 0) {
+          setTargets(fetched)
+          usedReactionTargets.push(...fetched)
+        }
+      } catch {
+        // keep default targets on error
+      }
+    }
+    loadTargets()
+  }, [])
 
   useEffect(() => {
     if (round < maxRounds) {
@@ -186,7 +213,7 @@ const ReactionTimeGame = ({ onComplete, gameInfo }) => {
 
       return () => clearTimeout(timeout)
     }
-  }, [round])
+  }, [round, maxRounds])
 
   const handleClick = () => {
     if (isActive && showTarget) {
@@ -209,7 +236,7 @@ const ReactionTimeGame = ({ onComplete, gameInfo }) => {
         consistency: Math.max(0, consistency)
       })
     }
-  }, [round, reactionTimes, onComplete])
+  }, [round, reactionTimes, onComplete, maxRounds])
 
   return (
     <Card>
@@ -234,7 +261,7 @@ const ReactionTimeGame = ({ onComplete, gameInfo }) => {
             onClick={handleClick}
           >
             {showTarget ? (
-              <div className="text-white text-4xl">🎯</div>
+              <div className="text-white text-4xl">{targets[round]}</div>
             ) : (
               <div className="text-gray-500">
                 {isActive ? 'Wait for the target...' : 'Click when you see the target!'}
@@ -258,13 +285,29 @@ const PatternRecognitionGame = ({ onComplete, gameInfo }) => {
   const [score, setScore] = useState(0)
   const [isCompleted, setIsCompleted] = useState(false)
 
-  const patterns = [
+  const defaultPatterns = [
     { sequence: [2, 4, 6, 8], answer: 10, options: [9, 10, 11, 12] },
     { sequence: [1, 4, 9, 16], answer: 25, options: [20, 25, 30, 36] },
     { sequence: [3, 6, 12, 24], answer: 48, options: [36, 42, 48, 54] },
     { sequence: [1, 1, 2, 3, 5], answer: 8, options: [6, 7, 8, 9] },
     { sequence: [100, 50, 25, 12.5], answer: 6.25, options: [5, 6.25, 7.5, 10] }
   ]
+  const [patterns, setPatterns] = useState(defaultPatterns)
+
+  useEffect(() => {
+    async function loadPatterns() {
+      try {
+        const generated = await generatePatternQuestions(usedPatternSequences)
+        if (Array.isArray(generated) && generated.length > 0) {
+          setPatterns(generated)
+          usedPatternSequences.push(...generated.map(p => p.sequence.join(',')))
+        }
+      } catch {
+        // keep default patterns on error
+      }
+    }
+    loadPatterns()
+  }, [])
 
   const handleAnswer = (selectedAnswer) => {
     const isCorrect = selectedAnswer === patterns[currentPattern].answer
@@ -554,11 +597,7 @@ const SocialScenariosGame = ({ onComplete, gameInfo }) => {
 }
 
 const CreativeProblemSolvingGame = ({ onComplete, gameInfo }) => {
-  const [currentChallenge, setCurrentChallenge] = useState(0)
-  const [solutions, setSolutions] = useState([])
-  const [currentSolution, setCurrentSolution] = useState('')
-
-  const challenges = [
+  const defaultChallenges = [
     {
       problem: "How many different uses can you think of for a paperclip?",
       timeLimit: 60,
@@ -576,20 +615,75 @@ const CreativeProblemSolvingGame = ({ onComplete, gameInfo }) => {
     }
   ]
 
-  const [timeLeft, setTimeLeft] = useState(challenges[currentChallenge].timeLimit)
+  const [challenges, setChallenges] = useState(defaultChallenges)
+  const [currentChallenge, setCurrentChallenge] = useState(0)
+  const [solutions, setSolutions] = useState([])
+  const [currentSolution, setCurrentSolution] = useState('')
+  const [timeLeft, setTimeLeft] = useState(defaultChallenges[0].timeLimit)
   const [isActive, setIsActive] = useState(false)
+
+  useEffect(() => {
+    async function loadChallenges() {
+      try {
+        const generated = await generateCreativeChallenges(usedCreativeProblems)
+        if (Array.isArray(generated) && generated.length > 0) {
+          setChallenges(generated)
+          setTimeLeft(generated[0].timeLimit)
+          usedCreativeProblems.push(...generated.map(c => c.problem))
+        }
+      } catch {
+        // keep default challenges on error
+      }
+    }
+    loadChallenges()
+  }, [])
+
+  const handleTimeUp = useCallback(async () => {
+    setIsActive(false)
+
+    if (currentChallenge < challenges.length - 1) {
+      setCurrentChallenge(prev => prev + 1)
+      setTimeLeft(challenges[currentChallenge + 1].timeLimit)
+      setSolutions([])
+    } else {
+      const totalSolutions = solutions.length
+      const creativityScore = Math.min(1, totalSolutions / 10)
+
+      let relevance = 0
+      let quality = 0
+      try {
+        const evaluation = await evaluateSolutions(challenges[currentChallenge].problem, solutions)
+        relevance = evaluation.relevance ?? 0
+        quality = evaluation.quality ?? 0
+      } catch {
+        // ignore evaluation errors
+      }
+
+      const peerComparisonScore = Math.min(1, (relevance + quality) / 2)
+
+      onComplete({
+        totalSolutions,
+        creativityScore,
+        relevanceScore: relevance,
+        qualityScore: quality,
+        peerComparisonScore,
+        peerComparisonNote: 'System assessed - not final',
+        creativeProblemSolving: creativityScore
+      })
+    }
+  }, [challenges, currentChallenge, onComplete, solutions])
 
   useEffect(() => {
     let interval = null
     if (isActive && timeLeft > 0) {
       interval = setInterval(() => {
-        setTimeLeft(timeLeft => timeLeft - 1)
+        setTimeLeft(time => time - 1)
       }, 1000)
     } else if (timeLeft === 0) {
       handleTimeUp()
     }
     return () => clearInterval(interval)
-  }, [isActive, timeLeft])
+  }, [isActive, timeLeft, handleTimeUp])
 
   const startChallenge = () => {
     setIsActive(true)
@@ -599,26 +693,6 @@ const CreativeProblemSolvingGame = ({ onComplete, gameInfo }) => {
     if (currentSolution.trim()) {
       setSolutions(prev => [...prev, currentSolution.trim()])
       setCurrentSolution('')
-    }
-  }
-
-  const handleTimeUp = () => {
-    setIsActive(false)
-    
-    if (currentChallenge < challenges.length - 1) {
-      setCurrentChallenge(prev => prev + 1)
-      setTimeLeft(challenges[currentChallenge + 1].timeLimit)
-      setSolutions([])
-    } else {
-      // Calculate creativity score based on number and uniqueness of solutions
-      const totalSolutions = solutions.length
-      const creativityScore = Math.min(1, totalSolutions / 10) // Normalize to 0-1
-      
-      onComplete({
-        totalSolutions,
-        creativityScore,
-        creativeProblemSolving: creativityScore
-      })
     }
   }
 

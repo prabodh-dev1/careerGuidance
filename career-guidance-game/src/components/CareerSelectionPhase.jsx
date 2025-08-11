@@ -6,9 +6,8 @@ import { Progress } from '@/components/ui/progress'
 import { 
   careerRoles, 
   calculateSkillFit, 
-  calculatePersonalityFit, 
+  calculatePersonalityFit,
   calculateMarketDemand,
-  calculatePayoff 
 } from '../lib/gameLogic'
 
 const CareerSelectionPhase = ({ playerProfile, gameState, onSelectCareer }) => {

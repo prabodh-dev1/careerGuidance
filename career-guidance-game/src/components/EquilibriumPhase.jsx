@@ -4,7 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge'
 import { careerRoles, detectNashEquilibrium } from '../lib/gameLogic'
 
-const EquilibriumPhase = ({ gameState, playerProfile, onContinue }) => {
+const EquilibriumPhase = ({ gameState, onContinue }) => {
   const [equilibriumData, setEquilibriumData] = useState(null)
   const [showExplanation, setShowExplanation] = useState(false)
 
@@ -196,26 +196,26 @@ const EquilibriumPhase = ({ gameState, playerProfile, onContinue }) => {
           <div className="grid md:grid-cols-3 gap-6">
             <div className="text-center">
               <div className="text-2xl font-bold text-red-600 mb-2">
-                {Object.entries(distribution).filter(([_, count]) => count > totalPlayers * 0.3).length}
+                {Object.entries(distribution).filter(([, count]) => count > totalPlayers * 0.3).length}
               </div>
               <div className="text-sm text-gray-600">Oversaturated Markets</div>
               <div className="text-xs text-gray-500 mt-1">
                 {Object.entries(distribution)
-                  .filter(([_, count]) => count > totalPlayers * 0.3)
-                  .map(([career, _]) => careerRoles[career].name)
+                  .filter(([, count]) => count > totalPlayers * 0.3)
+                  .map(([career]) => careerRoles[career].name)
                   .join(', ') || 'None'}
               </div>
             </div>
             
             <div className="text-center">
               <div className="text-2xl font-bold text-green-600 mb-2">
-                {Object.entries(distribution).filter(([_, count]) => count < totalPlayers * 0.1 && count > 0).length}
+                {Object.entries(distribution).filter(([, count]) => count < totalPlayers * 0.1 && count > 0).length}
               </div>
               <div className="text-sm text-gray-600">Emerging Opportunities</div>
               <div className="text-xs text-gray-500 mt-1">
                 {Object.entries(distribution)
-                  .filter(([_, count]) => count < totalPlayers * 0.1 && count > 0)
-                  .map(([career, _]) => careerRoles[career].name)
+                  .filter(([, count]) => count < totalPlayers * 0.1 && count > 0)
+                  .map(([career]) => careerRoles[career].name)
                   .join(', ') || 'None'}
               </div>
             </div>
